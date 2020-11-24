@@ -9,7 +9,7 @@ message FullIndex {
     google.protobuf.Empty request = 1;
 }
 
-message PartialIndex {
+message NodeIndex {
     bytes node_id = 1;
 }
 
@@ -25,5 +25,5 @@ message Reply {
 
 service Indexer { 
   rpc FullIndexRequest(FullIndex) returns(Reply); 
-  rpc PartialIndexRequest(PartialIndex) returns(Reply);
+  rpc PartialIndexRequest(NodeIndex) returns(Reply);
 }
