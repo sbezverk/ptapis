@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package id;
+option go_package = ".;id";
+
+message IDFull { google.protobuf.Empty request = 1; }
+
+message IDNode { bytes node_id = 1; }
+
+enum ReturnCode { OK = 0; ERR_TYPE1 = 1; }
+
+message Reply {
+  ReturnCode return_code = 1;
+  string error_detail = 2;
+}
+
+service ID {
+  rpc IDFullRequest(IDFull) returns(Reply);
+  rpc IDNodeRequest(IDNode) returns(Reply);
+}
