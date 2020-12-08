@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package configuration;
+option go_package = ".;configuration";
+
+enum Mode { PNODE = 0; PENODE = 1; }
+
+message Request {
+  string name = 1;
+  bytes id = 2;
+}
+
+enum ReturnCode { OK = 0; ERRID = 1; }
+
+message Reply {
+  bytes id = 1;
+  ReturnCode return_code = 2;
+  string error_detail = 3;
+  Mode mode = 4;
+  map<string, uint32> ports = 5;
+}
+
+service Configurator { rpc ConfigurationRequest(Request) returns(Reply); }
