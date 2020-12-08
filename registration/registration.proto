@@ -12,6 +12,8 @@ message Registration {
   Mode mode = 2;
 }
 
+message MonitorMessage { bytes id = 1; }
+
 enum ReturnCode { OK = 0; ERRMODE = 1; }
 
 message Reply {
@@ -22,6 +24,6 @@ message Reply {
 
 service Register {
   rpc RegistrationRequest(Registration) returns(Reply);
-  rpc MonitorSession(stream google.protobuf.Empty)
+  rpc MonitorSession(stream MonitorMessage)
       returns(stream google.protobuf.Empty);
 }
