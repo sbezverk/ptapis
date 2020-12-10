@@ -1,15 +1,20 @@
 syntax = "proto3";
 
-import "google/protobuf/empty.proto";
-
 package configuration;
 option go_package = ".;configuration";
+
+enum Function {
+  PTAGENT = 0;
+  PTCOLLECTOR = 1;
+  PTRECORDER = 2;
+}
 
 enum Mode { PNODE = 0; PENODE = 1; }
 
 message Request {
   string name = 1;
   bytes id = 2;
+  Function function = 3;
 }
 
 enum ReturnCode { OK = 0; ERRID = 1; }
