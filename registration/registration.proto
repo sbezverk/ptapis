@@ -5,11 +5,11 @@ import "google/protobuf/empty.proto";
 package registration;
 option go_package = ".;registration";
 
-enum Mode { PNODE = 0; PENODE = 1; }
+enum Function { PTAGENT = 0; PTCOLLECTOR = 1; PTRECORDER = 2; }
 
 message Registration {
   string name = 1;
-  Mode mode = 2;
+  Function function = 2;
 }
 
 message MonitorMessage { bytes id = 1; }
