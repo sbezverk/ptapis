@@ -3,11 +3,7 @@ syntax = "proto3";
 package configuration;
 option go_package = ".;configuration";
 
-enum Function {
-  PTAGENT = 0;
-  PTCOLLECTOR = 1;
-  PTRECORDER = 2;
-}
+enum Function { PTAGENT = 0; PTCOLLECTOR = 1; PTRECORDER = 2; }
 
 enum Mode { PNODE = 0; PENODE = 1; }
 
@@ -17,12 +13,7 @@ message Request {
   Function function = 3;
 }
 
-enum ReturnCode { 
-  OK = 0; 
-  ERRID = 1; 
-  ERRFUNC = 2;
-  ERRNAME = 3; 
-}
+enum ReturnCode { OK = 0; ERRID = 1; ERRFUNC = 2; ERRNAME = 3; }
 
 message Reply {
   bytes id = 1;
@@ -32,4 +23,6 @@ message Reply {
   map<string, uint32> port = 5;
 }
 
-service Configurator { rpc ConfigurationRequest(Request) returns(Reply); }
+service Configurator {
+  rpc ConfigurationRequest(Request) returns(stream Reply);
+}
