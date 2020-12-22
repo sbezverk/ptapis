@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package pathtrace;
+option go_package = ".;pathtrace";
+
+message Probe {
+  // Path Tracing Session ID
+  int32 pt_session_id = 1;
+  // Probe session source address, default is router's loopback address
+  bytes src_addr = 2;
+  // Probe session destination address, a uSID container with up to 4
+  // intermediate uSID’s and uN + uB bound at the egress PE to the push
+  // collector SID and forward.
+  bytes dst_addr = 3;
+  // DSCP value
+  int32 traffic_class = 4;
+  // Flow Label sweeping range, flow_label_start <= flow_label_end
+  int32 flow_label_start = 5;
+  int32 flow_label_end = 6;
+  // Number of packets generate per each flow label
+  int32 packets_per_flow = 7;
+  // # of probe packets per second for a given destination
+  int32 probe_rate = 8;
+  // HopByHop extension header's  type
+  // TODO (sbezverk) Add enumeration when HBH types are finalized
+  int32 hbh_type = 9;
+  // HopByHop extension header's Action value
+  int32 hbh_action = 10;
+  // HopByHop extension header's payload size, which is a number of interfaces
+  // ids to allocate
+  int32 hbh_payload_size = 11;
+  // SRH TLV type
+  int32 srh_tlv_type = 12;
+}
+
+// Single PathTraceJob can carry multiple instances of Probe sessions as a map with
+// the key of pt_session_id
+message PathTraceJob { map<int32, Probe> probe = 1; }
+
+// RC defines return codes a client might receive
+enum RC {
+  NIL = 0;
+  // OK - PT Request has been completed successfully
+  OK = 1;
+  // EDUPID - a duplicate PathTrace Session ID was discovered
+  EDUPID = 2;
+  // EINVAL - a failure was encountered while validating session parameters
+  EINVAL = 3;
+  // ETX - a failure was encountered while sending Probe packets
+  ETX = 4;
+}
+
+// GetPathTraceJob requests a controller for a new injecting job and it carries a return code
+// for the previous job, initial request carries an empty map.
+message GetPathTraceJob { map<int32, RC> code = 1; }
+
+// PathTraceReply gets returned to the client by a controller as a result of Path Trace Job
+message PathTraceReply { map<int32, RC> code = 1; }
+
+service PathTracer { 
+  // PathTraceJobRequest comes from a path trace agent, it is a stream of job requests
+  // and job replies. Each new request carries the result of a previous job.
+  rpc PathTraceJobRequest(stream GetPathTraceJob) returns(stream PathTraceJob);
+  // PathTraceRequest is initiated by a client application
+  rpc PathTraceRequest(PathTraceJob) returns(PathTraceReply);
+}
