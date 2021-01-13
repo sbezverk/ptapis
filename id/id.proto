@@ -9,7 +9,10 @@ message IDFull { google.protobuf.Empty request = 1; }
 
 message IDNode { bytes node_id = 1; }
 
-enum ReturnCode { OK = 0; ERR_TYPE1 = 1; }
+enum ReturnCode {
+  OK = 0;
+  ERR_TYPE1 = 1;
+}
 
 message Reply {
   ReturnCode return_code = 1;
@@ -17,6 +20,6 @@ message Reply {
 }
 
 service ID {
-  rpc IDFullRequest(IDFull) returns(Reply);
-  rpc IDNodeRequest(IDNode) returns(Reply);
+  rpc IDFullRequest(IDFull) returns (Reply);
+  rpc IDNodeRequest(IDNode) returns (Reply);
 }

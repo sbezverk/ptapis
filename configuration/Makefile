@@ -1,2 +1,2 @@
 generate-go:
-	protoc --proto_path=. configuration.proto --go_out=.
+	protoc --proto_path=. configuration.proto --go_out=plugins=grpc:.

@@ -5,7 +5,11 @@ import "google/protobuf/empty.proto";
 package registration;
 option go_package = ".;registration";
 
-enum Function { PTAGENT = 0; PTCOLLECTOR = 1; PTRECORDER = 2; }
+enum Function {
+  PTAGENT = 0;
+  PTCOLLECTOR = 1;
+  PTRECORDER = 2;
+}
 
 message Registration {
   string name = 1;
@@ -14,7 +18,10 @@ message Registration {
 
 message MonitorMessage { bytes id = 1; }
 
-enum ReturnCode { OK = 0; ERRMODE = 1; }
+enum ReturnCode {
+  OK = 0;
+  ERRMODE = 1;
+}
 
 message Reply {
   bytes id = 1;
@@ -23,7 +30,7 @@ message Reply {
 }
 
 service Register {
-  rpc RegistrationRequest(Registration) returns(Reply);
+  rpc RegistrationRequest(Registration) returns (Reply);
   rpc MonitorSession(stream MonitorMessage)
-      returns(stream google.protobuf.Empty);
+      returns (stream google.protobuf.Empty);
 }
