@@ -37,7 +37,7 @@ message Probe {
 // with the key of pt_session_id
 message PathTraceJob {
   bytes id = 1;
-  map<int32, Probe> probe = 2;
+  Probe probe = 2;
 }
 
 // RC defines return codes a client might receive
@@ -57,18 +57,18 @@ enum RC {
 // a return code for the previous job, initial request carries an empty map.
 message GetPathTraceJob {
   bytes id = 1;
-  map<int32, RC> code = 2;
+  RC code = 2;
 }
 
 // PathTraceReply gets returned to the client by a controller as a result of
 // Path Trace Job
-message PathTraceReply { map<int32, RC> code = 1; }
+message PathTraceReply { RC code = 1; }
 
 service PathTracer {
   // PathTraceJobRequest comes from a path trace agent, it is a stream of job
   // requests and job replies. Each new request carries the result of a previous
   // job.
-  rpc PathTraceJobRequest(stream GetPathTraceJob) returns(stream PathTraceJob);
+  rpc PathTraceJobRequest(stream GetPathTraceJob) returns (stream PathTraceJob);
   // PathTraceRequest is initiated by a client application
-  rpc PathTraceRequest(PathTraceJob) returns(PathTraceReply);
+  rpc PathTraceRequest(PathTraceJob) returns (PathTraceReply);
 }
