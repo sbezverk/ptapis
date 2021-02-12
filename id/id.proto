@@ -14,7 +14,7 @@ enum ReturnCode {
   ERR_TYPE1 = 1;
 }
 
-enum Mode {
+enum PTMode {
   PNODE = 0;
   PENODE = 1;
 }
@@ -26,15 +26,15 @@ enum PTRouterOS {
 }
 
 message PTRouter {
-  Mode mode = 1;
+  PTMode pt_mode = 1;
   PTRouterOS os = 2;
   map<string, uint32> port = 3;
 }
 
 message Reply {
-  ReturnCode return_code = 1;
-  string error_detail = 2;
-  repeated PTRouter pt_router = 3;
+  repeated PTRouter pt_router = 1;
+  ReturnCode return_code = 2;
+  string error_detail = 3;
 }
 
 service ID {
