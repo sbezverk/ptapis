@@ -3,7 +3,7 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 
 package registration;
-option go_package = ".;registration";
+option go_package = "./;registration";
 
 enum Function {
   PTAGENT = 0;

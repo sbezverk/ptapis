@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package pathtrace;
-option go_package = ".;pathtrace";
+option go_package = "./;pathtrace";
 
 message Probe {
   // Path Tracing Session ID
@@ -24,13 +24,10 @@ message Probe {
   // HopByHop extension header's  type
   // TODO (sbezverk) Add enumeration when HBH types are finalized
   int32 hbh_type = 9;
-  // HopByHop extension header's Action value
-  int32 hbh_action = 10;
-  // HopByHop extension header's payload size, which is a number of interfaces
-  // ids to allocate
-  int32 hbh_payload_size = 11;
   // SRH TLV type
-  int32 srh_tlv_type = 12;
+  int32 srh_tlv_type = 10;
+  // SRH SID list
+  repeated bytes sid_list = 11;
 }
 
 // Single PathTraceJob can carry multiple instances of Probe sessions as a map
