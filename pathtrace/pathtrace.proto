@@ -8,10 +8,10 @@ message Probe {
   int32 pt_session_id = 1;
   // Probe session source address, default is router's loopback address
   bytes src_addr = 2;
-  // Probe session destination address, a uSID container with up to 4
-  // intermediate uSID’s and uN + uB bound at the egress PE to the push
-  // collector SID and forward.
-  bytes dst_addr = 3;
+  // Probe's segment list carries a list of segments a probe traverses, the
+  // segment list is in REVERSE order, with first segment being the destination
+  // of Probe's session.
+  repeated bytes segment_list = 3;
   // DSCP value
   int32 traffic_class = 4;
   // Flow Label sweeping range, flow_label_start <= flow_label_end
@@ -26,8 +26,6 @@ message Probe {
   int32 hbh_type = 9;
   // SRH TLV type
   int32 srh_tlv_type = 10;
-  // SRH SID list
-  repeated bytes sid_list = 11;
 }
 
 // Single PathTraceJob can carry multiple instances of Probe sessions as a map
