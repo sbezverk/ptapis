@@ -9,11 +9,6 @@ enum Function {
   PTRECORDER = 2;
 }
 
-enum Mode {
-  PNODE = 0;
-  PENODE = 1;
-}
-
 message Request {
   string name = 1;
   bytes id = 2;
@@ -31,7 +26,6 @@ message Reply {
   bytes id = 1;
   ReturnCode return_code = 2;
   string error_detail = 3;
-  Mode mode = 4;
   map<string, uint32> port = 5;
 }
 
