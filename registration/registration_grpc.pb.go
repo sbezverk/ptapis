@@ -4,10 +4,10 @@ package registration
 
 import (
 	context "context"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -51,7 +51,7 @@ func (c *registerClient) MonitorSession(ctx context.Context, opts ...grpc.CallOp
 
 type Register_MonitorSessionClient interface {
 	Send(*MonitorMessage) error
-	Recv() (*emptypb.Empty, error)
+	Recv() (*empty.Empty, error)
 	grpc.ClientStream
 }
 
@@ -63,8 +63,8 @@ func (x *registerMonitorSessionClient) Send(m *MonitorMessage) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *registerMonitorSessionClient) Recv() (*emptypb.Empty, error) {
-	m := new(emptypb.Empty)
+func (x *registerMonitorSessionClient) Recv() (*empty.Empty, error) {
+	m := new(empty.Empty)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -126,7 +126,7 @@ func _Register_MonitorSession_Handler(srv interface{}, stream grpc.ServerStream)
 }
 
 type Register_MonitorSessionServer interface {
-	Send(*emptypb.Empty) error
+	Send(*empty.Empty) error
 	Recv() (*MonitorMessage, error)
 	grpc.ServerStream
 }
@@ -135,7 +135,7 @@ type registerMonitorSessionServer struct {
 	grpc.ServerStream
 }
 
-func (x *registerMonitorSessionServer) Send(m *emptypb.Empty) error {
+func (x *registerMonitorSessionServer) Send(m *empty.Empty) error {
 	return x.ServerStream.SendMsg(m)
 }
 

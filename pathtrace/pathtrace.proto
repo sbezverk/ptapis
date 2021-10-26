@@ -5,7 +5,7 @@ option go_package = "./;pathtrace";
 
 message Probe {
   // Path Tracing Session ID
-  int32 pt_session_id = 1;
+  int32 session_id = 1;
   // Probe session source address, default is router's loopback address
   bytes src_addr = 2;
   // Probe's segment list carries a list of segments a probe traverses, the
