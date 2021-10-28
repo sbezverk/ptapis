@@ -6,26 +6,22 @@ option go_package = "./;pathtrace";
 message Probe {
   // Path Tracing Session ID
   int32 session_id = 1;
-  // Probe session source address, default is router's loopback address
+  // Source address to use for Probe packet
   bytes src_addr = 2;
+  bytes dst_addr = 3;
   // Probe's segment list carries a list of segments a probe traverses, the
   // segment list is in REVERSE order, with first segment being the destination
-  // of Probe's session.
-  repeated bytes segment_list = 3;
+  // of Probe's session. dst_addr and segment_list[0] MUST be the same address
+  repeated bytes segment_list = 4;
   // DSCP value
-  int32 traffic_class = 4;
+  int32 traffic_class = 5;
   // Flow Label sweeping range, flow_label_start <= flow_label_end
-  int32 flow_label_start = 5;
-  int32 flow_label_end = 6;
+  int32 flow_label_start = 6;
+  int32 flow_label_end = 7;
   // Number of packets generate per each flow label
-  int32 packets_per_flow = 7;
+  int32 packets_per_flow = 8;
   // # of probe packets per second for a given destination
-  int32 probe_rate = 8;
-  // HopByHop extension header's  type
-  // TODO (sbezverk) Add enumeration when HBH types are finalized
-  int32 hbh_type = 9;
-  // SRH TLV type
-  int32 srh_tlv_type = 10;
+  int32 probe_rate = 9;
 }
 
 // Single PathTraceJob can carry multiple instances of Probe sessions as a map
