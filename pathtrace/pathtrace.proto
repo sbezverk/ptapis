@@ -9,19 +9,20 @@ message Probe {
   // Source address to use for Probe packet
   bytes src_addr = 2;
   bytes dst_addr = 3;
+  int32 hop_limit = 4;
   // Probe's segment list carries a list of segments a probe traverses, the
   // segment list is in REVERSE order, with first segment being the destination
   // of Probe's session. dst_addr and segment_list[0] MUST be the same address
-  repeated bytes segment_list = 4;
+  repeated bytes segment_list = 5;
   // DSCP value
-  int32 traffic_class = 5;
+  int32 traffic_class = 6;
   // Flow Label sweeping range, flow_label_start <= flow_label_end
-  int32 flow_label_start = 6;
-  int32 flow_label_end = 7;
+  int32 flow_label_start = 7;
+  int32 flow_label_end = 8;
   // Number of packets generate per each flow label
-  int32 packets_per_flow = 8;
+  int32 packets_per_flow = 9;
   // # of probe packets per second for a given destination
-  int32 probe_rate = 9;
+  int32 probe_rate = 10;
 }
 
 // Single PathTraceJob can carry multiple instances of Probe sessions as a map
