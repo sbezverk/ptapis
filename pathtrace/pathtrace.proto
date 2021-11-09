@@ -23,6 +23,11 @@ message Probe {
   int32 packets_per_flow = 9;
   // # of probe packets per second for a given destination
   int32 probe_rate = 10;
+  // Specifies if probe should be constructed in No Reduced mode
+  // by default a probe is constructed in Reduced mode.
+  bool reduced_mode_off = 11;
+  // Specifies if Probe is Path Tracing probe (default) or Path Assurance
+  bool pa_mode = 12;
 }
 
 // Single PathTraceJob can carry multiple instances of Probe sessions as a map
