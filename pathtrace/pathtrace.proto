@@ -8,11 +8,13 @@ message Probe {
   int32 session_id = 1;
   // Source address to use for Probe packet
   bytes src_addr = 2;
-  bytes dst_addr = 3;
+  // Defines the SID of the TEF behaviour of the Sink node.
+  bytes tef_sid = 3;
   int32 hop_limit = 4;
   // Probe's segment list carries a list of segments a probe traverses, the
   // segment list is in REVERSE order, with first segment being the destination
-  // of Probe's session. dst_addr and segment_list[0] MUST be the same address
+  // of Probe's session. Segment list must contain at least 1 entry for Probe's
+  // destination.
   repeated bytes segment_list = 5;
   // DSCP value
   int32 traffic_class = 6;
