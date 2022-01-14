@@ -11,10 +11,8 @@ message Probe {
   // Defines the SID of the TEF behaviour of the Sink node.
   bytes tef_sid = 3;
   int32 hop_limit = 4;
-  // Probe's segment list carries a list of segments a probe traverses, the
-  // segment list is in REVERSE order, with first segment being the destination
-  // of Probe's session. Segment list must contain at least 1 entry for Probe's
-  // destination.
+  // Probe's segment list carries a list of segments a probe traverses, starting
+  // the next hop SID from the source.
   repeated bytes segment_list = 5;
   // DSCP value
   int32 traffic_class = 6;
